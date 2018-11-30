@@ -3,17 +3,15 @@ package com.sano.reditto.presentation.login
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.content.res.ResourcesCompat
 import com.sano.reditto.R
 import com.sano.reditto.presentation.main.MainActivity
 import org.koin.android.ext.android.inject
-import saschpe.android.customtabs.CustomTabsHelper
-import saschpe.android.customtabs.WebViewFallback
 
-class LoginActivity: AppCompatActivity(), LoginView {
+const val CODE_QUERY_PARAMETER = "code"
 
+class LoginActivity : AppCompatActivity(), LoginView {
     private val presenter: LoginPresenter by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,19 +22,26 @@ class LoginActivity: AppCompatActivity(), LoginView {
     }
 
     override fun openTab(url: String) =
-        CustomTabsIntent.Builder()
-            .addDefaultShareMenuItem()
-            .setToolbarColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, null))
-            .setShowTitle(true)
-            .build()
+        Intent(Intent.ACTION_VIEW, Uri.parse(url))
             .let {
-                CustomTabsHelper.addKeepAliveExtra(this@LoginActivity, it.intent)
-                CustomTabsHelper
-                    .openCustomTab(this@LoginActivity, it, Uri.parse(url), WebViewFallback())
+                it.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+                startActivity(it)
             }
-
 
     override fun navigateToMain() =
         startActivity(Intent(this, MainActivity::class.java))
+            .also { finish() }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        presenter.handleUri(intent?.data)
+    }
+
+    override fun showError(message: String?) {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.error)
+            .setMessage(message)
+            .create()
+            .show()
+    }
 }

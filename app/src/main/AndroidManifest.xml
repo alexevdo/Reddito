@@ -11,11 +11,18 @@
             android:name=".Application"
             android:theme="@style/AppTheme">
 
-        <activity android:name=".presentation.login.LoginActivity">
+        <activity android:name=".presentation.login.LoginActivity"
+                  android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="http" android:host="oauth-reditto"/>
             </intent-filter>
         </activity>
 
