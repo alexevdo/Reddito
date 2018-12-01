@@ -12,3 +12,13 @@ fun <T> Single<T>.defaultSchedulers(): Single<T> =
 fun Completable.defaultSchedulers(): Completable =
     this.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
+
+fun <T> Single<T>.handleProgress(progressVisibility: (Boolean) -> Unit): Single<T> =
+    this.doOnSubscribe { progressVisibility.invoke(true) }
+        .doOnSuccess { progressVisibility.invoke(false) }
+        .doOnError { progressVisibility.invoke(false) }
+
+fun Completable.handleProgress(progressVisibility: (Boolean) -> Unit): Completable =
+    this.doOnSubscribe { progressVisibility.invoke(true) }
+        .doOnComplete { progressVisibility.invoke(false) }
+        .doOnError { progressVisibility.invoke(false) }

@@ -7,4 +7,5 @@ interface MainView: BaseView {
     fun addLinks(models: List<LinkModel>)
     fun setLinks(models: List<LinkModel>)
     fun setRefreshing(isRefreshing: Boolean)
+    fun logout()
 }
