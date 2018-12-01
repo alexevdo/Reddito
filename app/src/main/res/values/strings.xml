@@ -6,4 +6,6 @@
     <string name="revoke_access_token">Revoke Access Token</string>
     <string name="revoke_refresh_token">Revoke Refresh Token</string>
     <string name="logout">Logout</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_in_title">Please sign in to use reddit API</string>
 </resources>
