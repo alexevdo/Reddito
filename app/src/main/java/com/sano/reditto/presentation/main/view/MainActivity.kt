@@ -12,7 +12,11 @@ import com.sano.reditto.presentation.base.PaginationScrollListener
 import com.sano.reditto.presentation.login.view.LoginActivity
 import com.sano.reditto.presentation.main.MainPresenter
 import com.sano.reditto.presentation.model.LinkModel
+import com.sano.reditto.util.gone
+import com.sano.reditto.util.isVisible
 import com.sano.reditto.util.openCustomTab
+import com.sano.reditto.util.visible
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 

@@ -12,7 +12,12 @@
             android:theme="@style/AppTheme">
 
         <activity android:name=".presentation.login.view.LoginActivity"
-                  android:launchMode="singleInstance">
+                  android:launchMode="singleInstance"/>
+
+        <activity android:name=".presentation.main.view.MainActivity"/>
+
+        <activity android:name=".presentation.splash.SplashActivity"
+                  android:theme="@style/AppTheme.NoActionBar.Launch">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,15 +25,10 @@
             </intent-filter>
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="http" android:host="oauth-reditto"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
 
         </activity>
-
-        <activity android:name=".presentation.main.view.MainActivity"/>
 
     </application>
 

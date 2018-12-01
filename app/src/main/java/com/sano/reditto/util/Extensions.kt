@@ -12,13 +12,14 @@ import com.sano.reditto.R
 import saschpe.android.customtabs.CustomTabsHelper
 import saschpe.android.customtabs.WebViewFallback
 
-fun ViewGroup.inflate(@LayoutRes layoutId: Int): View =
+fun ViewGroup.inflate(@LayoutRes layoutId: Int, attachToRoot: Boolean = false): View =
     LayoutInflater.from(context)
-        .inflate(layoutId, this, false)
+        .inflate(layoutId, this, attachToRoot)
 
 fun View.gone() { visibility = View.GONE }
 fun View.visible() { visibility = View.VISIBLE}
 fun View.visibleOrGone(isVisible: Boolean) { if(isVisible) visible() else gone() }
+fun View.isVisible() = visibility == View.VISIBLE
 
 fun View.onClick(listener: (View) -> Unit) = setOnClickListener(listener)
 

@@ -17,6 +17,7 @@ import com.sano.reditto.R
 import com.sano.reditto.presentation.login.LoginPresenter
 import com.sano.reditto.presentation.main.view.MainActivity
 import com.sano.reditto.util.gone
+import com.sano.reditto.util.isVisible
 import com.sano.reditto.util.onClick
 import com.sano.reditto.util.visible
 import kotlinx.android.synthetic.main.activity_login.*
@@ -47,8 +48,8 @@ class LoginActivity : AppCompatActivity(), LoginView {
         }
     }
 
-    override fun openTab(url: String) {
-        webView.visible()
+    override fun openTab(url: String, isShowWebView: Boolean) {
+        if(isShowWebView) webView.visible()
         webView.loadUrl(url)
     }
 
@@ -74,4 +75,12 @@ class LoginActivity : AppCompatActivity(), LoginView {
 
     override fun notify(s: String) =
         Toast.makeText(this, "Notify $s", Toast.LENGTH_LONG).show()
+
+    override fun onBackPressed() {
+        if(webView.isVisible()) {
+            webView.gone()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

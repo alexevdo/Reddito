@@ -17,6 +17,7 @@ class Repository(
     private val authManager: AuthManager,
     private val sessionManager: SessionManager
 ) : IRepository {
+
     override fun updateAccessToken(code: String): Completable =
         authApiClient
             .getNewAccessToken(authManager.clientBasicAuth, code, API_OAUTH_REDIRECT, ACCESS_GRANT_TYPE)

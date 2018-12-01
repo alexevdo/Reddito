@@ -17,7 +17,7 @@ class LoginPresenter(private val authManager: AuthManager, private val useCase: 
 
     override fun onViewSet() {
         if (authManager.isLoggedIn) view.navigateToMain()
-        else view.openTab(API_LOGIN_URL)
+        else view.openTab(API_LOGIN_URL, false)
     }
 
     fun handleUri(uri: Uri?): Boolean {
@@ -46,5 +46,5 @@ class LoginPresenter(private val authManager: AuthManager, private val useCase: 
         return true
     }
 
-    fun signInClick() = view.openTab(API_LOGIN_URL)
+    fun signInClick() = view.openTab(API_LOGIN_URL, true)
 }

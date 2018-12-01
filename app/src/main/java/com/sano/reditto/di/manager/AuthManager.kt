@@ -36,8 +36,10 @@ class AuthManager(private val sharedPrefs: SharedPreferences) {
         sharedPrefs.edit()
             .apply {
                 putString(ACCESS_TOKEN_PREFS_KEY, accessToken.accessToken)
-                putString(REFRESH_TOKEN_PREFS_KEY, accessToken.refreshToken)
                 putString(TOKEN_TYPE_PREFS_KEY, accessToken.tokenType)
+
+                if(!accessToken.refreshToken.isNullOrEmpty())
+                    putString(REFRESH_TOKEN_PREFS_KEY, accessToken.refreshToken)
             }
             .apply()
 
