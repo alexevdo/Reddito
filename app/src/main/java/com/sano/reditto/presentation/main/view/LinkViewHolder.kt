@@ -1,4 +1,4 @@
-package com.sano.reditto.presentation.main
+package com.sano.reditto.presentation.main.view
 
 import android.text.format.DateUtils
 import android.view.View

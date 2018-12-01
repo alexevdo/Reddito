@@ -1,4 +1,4 @@
-package com.sano.reditto.presentation.main
+package com.sano.reditto.presentation.main.view
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -20,5 +20,10 @@ class LinkAdapter: RecyclerView.Adapter<LinkViewHolder>() {
     fun addItems(addItems: List<LinkModel>) {
         items.addAll(addItems)
         notifyDataSetChanged()
+    }
+
+    fun setItems(models: List<LinkModel>) {
+        items.clear()
+        addItems(models)
     }
 }

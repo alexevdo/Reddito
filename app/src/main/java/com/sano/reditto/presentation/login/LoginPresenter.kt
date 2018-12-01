@@ -5,6 +5,8 @@ import com.sano.reditto.di.manager.API_LOGIN_URL
 import com.sano.reditto.di.manager.AuthManager
 import com.sano.reditto.domain.usecase.LoginUseCase
 import com.sano.reditto.presentation.base.BasePresenter
+import com.sano.reditto.presentation.login.view.CODE_QUERY_PARAMETER
+import com.sano.reditto.presentation.login.view.LoginView
 import io.reactivex.rxkotlin.addTo
 
 class LoginPresenter(private val authManager: AuthManager, private val useCase: LoginUseCase) :

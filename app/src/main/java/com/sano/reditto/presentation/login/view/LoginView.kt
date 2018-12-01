@@ -1,4 +1,4 @@
-package com.sano.reditto.presentation.login
+package com.sano.reditto.presentation.login.view
 
 import com.sano.reditto.presentation.base.BaseView
 

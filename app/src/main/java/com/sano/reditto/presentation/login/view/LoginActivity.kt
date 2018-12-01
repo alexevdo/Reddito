@@ -1,4 +1,4 @@
-package com.sano.reditto.presentation.login
+package com.sano.reditto.presentation.login.view
 
 import android.content.Intent
 import android.net.Uri
@@ -6,7 +6,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.sano.reditto.R
-import com.sano.reditto.presentation.main.MainActivity
+import com.sano.reditto.presentation.login.LoginPresenter
+import com.sano.reditto.presentation.main.view.MainActivity
 import org.koin.android.ext.android.inject
 
 const val CODE_QUERY_PARAMETER = "code"
