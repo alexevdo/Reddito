@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+    <TextView
+            android:id="@+id/tvInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:textColor="@color/link_info_color"
+            tools:text="@string/post_info"
+            />
+
+    <ImageView
+            android:id="@+id/ivPostImage"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingTop="4dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/stub"
+            app:layout_constraintTop_toBottomOf="@id/tvInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:textSize="16sp"
+            android:textColor="@color/link_title_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvInfo"
+            app:layout_constraintEnd_toStartOf="@id/ivPostImage"
+            tools:text="TIL After Col. Shaw died in battle, Confederates buried him in a mass grave as an insult for leading black"
+            />
+
+    <android.support.constraint.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="ivPostImage,tvTitle"
+            />
+
+    <TextView
+            android:id="@+id/tvScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/link_score_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/barrier"
+            tools:text="@string/post_score_comments"
+            />
+
+    <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#333333"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvScore"
+            />
+
+</android.support.constraint.ConstraintLayout>

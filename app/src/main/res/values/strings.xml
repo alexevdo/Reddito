@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Reditto</string>
     <string name="error">Error!</string>
+    <string name="post_info">Posted by %1$s %2$s</string>
+    <string name="post_score_comments">Score: %1$s, %2$s comments</string>
 </resources>

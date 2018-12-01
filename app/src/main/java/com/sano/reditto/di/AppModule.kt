@@ -83,7 +83,7 @@ private fun OkHttpClient.Builder.addAuthInterceptors(authAPIClient: AuthAPIClien
         chain.proceed(request)
     }
 
-    authenticator { route, response ->
+    authenticator { _, response ->
         if (responseCount(response) >= 2) {
             sessionManager.authError()
             return@authenticator null

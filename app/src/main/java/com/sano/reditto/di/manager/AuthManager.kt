@@ -29,27 +29,35 @@ class AuthManager(private val sharedPrefs: SharedPreferences) {
 
     fun isOauthUri(uri: String) = uri.startsWith(API_OAUTH_REDIRECT)
 
-    fun updateAuthToken(accessToken: AccessToken) {
-        sharedPrefs.edit().putString(ACCESS_TOKEN_PREFS_KEY, accessToken.accessToken).apply()
-        sharedPrefs.edit().putString(REFRESH_TOKEN_PREFS_KEY, accessToken.refreshToken).apply()
-        sharedPrefs.edit().putString(TOKEN_TYPE_PREFS_KEY, accessToken.tokenType).apply()
-    }
+    fun updateAuthToken(accessToken: AccessToken) =
+        sharedPrefs.edit()
+            .apply {
+                putString(ACCESS_TOKEN_PREFS_KEY, accessToken.accessToken)
+                putString(REFRESH_TOKEN_PREFS_KEY, accessToken.refreshToken)
+                putString(TOKEN_TYPE_PREFS_KEY, accessToken.tokenType)
+            }
+            .apply()
 
-    fun authError() {
-        sharedPrefs.edit().remove(ACCESS_TOKEN_PREFS_KEY).apply()
-        sharedPrefs.edit().remove(REFRESH_TOKEN_PREFS_KEY).apply()
-        sharedPrefs.edit().remove(TOKEN_TYPE_PREFS_KEY).apply()
-    }
+
+    fun authError() =
+        sharedPrefs.edit()
+            .apply {
+                remove(ACCESS_TOKEN_PREFS_KEY)
+                remove(REFRESH_TOKEN_PREFS_KEY)
+                remove(TOKEN_TYPE_PREFS_KEY)
+            }
+            .apply()
 
     val accessToken: String? = sharedPrefs.getString(ACCESS_TOKEN_PREFS_KEY, null)
-    val tokenType: String? = sharedPrefs.getString(ACCESS_GRANT_TYPE, null)
+    val tokenType: String? = sharedPrefs.getString(TOKEN_TYPE_PREFS_KEY, null)
     val refreshToken: String? = sharedPrefs.getString(REFRESH_TOKEN_PREFS_KEY, null)
     val clientBasicAuth: String = Credentials.basic(API_OAUTH_CLIENT_ID, "")
 
     val tokenHeaders: Map<String, String> = mapOf(
-        "Accept"        to "application/json",
-        "Content-type"  to "application/json",
-        "Authorization" to "$tokenType $accessToken")
+        "Accept" to "application/json",
+        "Content-type" to "application/json",
+        "Authorization" to "$tokenType $accessToken"
+    )
 
     val isLoggedIn: Boolean
         get() = !sharedPrefs.getString(ACCESS_TOKEN_PREFS_KEY, null).isNullOrEmpty()

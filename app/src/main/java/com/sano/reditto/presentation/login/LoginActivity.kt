@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
 
-        presenter.setLoginView(this)
+        presenter.init(this)
     }
 
     override fun openTab(url: String) =
