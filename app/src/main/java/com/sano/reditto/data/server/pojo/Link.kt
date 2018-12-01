@@ -40,7 +40,7 @@ class Link(
     val id: String,
 
     @SerializedName("permalink")
-    val permalink: String? = null,
+    val permalink: String,
 
     @SerializedName("url")
     val url: String? = null,

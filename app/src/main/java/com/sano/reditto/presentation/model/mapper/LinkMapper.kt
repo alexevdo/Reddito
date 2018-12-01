@@ -11,5 +11,6 @@ fun LinkEntity.toLinkModel() =
         postDate = postDate,
         thumbnail = thumbnail,
         score = score,
-        numComments = numComments
+        numComments = numComments,
+        link = link
     )

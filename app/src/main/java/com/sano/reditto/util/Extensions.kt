@@ -12,3 +12,5 @@ fun ViewGroup.inflate(@LayoutRes layoutId: Int): View =
 fun View.gone() { visibility = View.GONE }
 fun View.visible() { visibility = View.VISIBLE}
 fun View.visibleOrGone(isVisible: Boolean) { if(isVisible) visible() else gone() }
+
+fun View.onClick(listener: (View) -> Unit) = setOnClickListener(listener)

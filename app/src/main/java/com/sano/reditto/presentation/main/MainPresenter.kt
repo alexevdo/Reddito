@@ -4,6 +4,7 @@ import com.sano.reditto.di.manager.SessionManager
 import com.sano.reditto.domain.usecase.MainUseCase
 import com.sano.reditto.presentation.base.BasePresenter
 import com.sano.reditto.presentation.main.view.MainView
+import com.sano.reditto.presentation.model.LinkModel
 import com.sano.reditto.util.handleProgress
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
@@ -58,7 +59,7 @@ class MainPresenter(
             .addTo(compositeDisposable)
     }
 
-    fun logout() {
-        mainUseCase.logout()
-    }
+    fun logout() = mainUseCase.logout()
+
+    fun onLinkClick(it: LinkModel) = view.openTab(mainUseCase.formatLink(it.link))
 }

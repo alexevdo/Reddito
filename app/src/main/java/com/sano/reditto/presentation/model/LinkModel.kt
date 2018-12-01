@@ -9,7 +9,8 @@ class LinkModel (
     val postDate: Long,
     val thumbnail: String?,
     val score: Int,
-    val numComments: Int
+    val numComments: Int,
+    val link: String
 ) {
     fun hasThumbnail() = thumbnail != null && thumbnail != DEFAULT_THUMBNAIL
 }

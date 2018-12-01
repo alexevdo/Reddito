@@ -6,6 +6,8 @@ import com.sano.reditto.presentation.model.LinkModel
 import com.sano.reditto.presentation.model.mapper.toLinkModel
 import io.reactivex.Single
 
+private const val LINK_PREFIX = "https://www.reddit.com/"
+
 class MainUseCase(private val repository: IRepository) {
     private var after: String? = null
     private val time = TopTimeEntity.DAY
@@ -23,5 +25,7 @@ class MainUseCase(private val repository: IRepository) {
     fun revokeRefreshToken() = repository.revokeRefreshToken()
 
     fun logout() = repository.logout()
+
+    fun formatLink(link: String) = LINK_PREFIX + link
 
 }

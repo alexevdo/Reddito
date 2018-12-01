@@ -1,11 +1,14 @@
 package com.sano.reditto.presentation.main.view
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sano.reditto.R
 import com.sano.reditto.presentation.base.PaginationScrollListener
@@ -14,6 +17,8 @@ import com.sano.reditto.presentation.main.MainPresenter
 import com.sano.reditto.presentation.model.LinkModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
+import saschpe.android.customtabs.CustomTabsHelper
+import saschpe.android.customtabs.WebViewFallback
 
 class MainActivity : AppCompatActivity(), MainView {
     private val presenter: MainPresenter by inject()
@@ -27,7 +32,8 @@ class MainActivity : AppCompatActivity(), MainView {
 
         presenter.init(this)
 
-        adapter = LinkAdapter()
+        adapter = LinkAdapter { presenter.onLinkClick(it) }
+
         layoutManager = LinearLayoutManager(this)
 
         rvTop.layoutManager = layoutManager
@@ -36,7 +42,8 @@ class MainActivity : AppCompatActivity(), MainView {
         rvTop.addOnScrollListener(
             PaginationScrollListener(presenter.pageSize, layoutManager,
                 isLoading = { lRefresh.isRefreshing },
-                loadMore = { presenter.loadMore(adapter.itemCount) }))
+                loadMore = { presenter.loadMore(adapter.itemCount) })
+        )
 
         lRefresh.setOnRefreshListener { presenter.load() }
     }
@@ -83,4 +90,16 @@ class MainActivity : AppCompatActivity(), MainView {
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
+
+    override fun openTab(url: String) =
+        CustomTabsIntent.Builder()
+            .addDefaultShareMenuItem()
+            .setToolbarColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, null))
+            .setShowTitle(true)
+            .build()
+            .let {
+                CustomTabsHelper.addKeepAliveExtra(this@MainActivity, it.intent)
+                CustomTabsHelper
+                    .openCustomTab(this@MainActivity, it, Uri.parse(url), WebViewFallback())
+            }
 }

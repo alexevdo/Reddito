@@ -6,25 +6,30 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sano.reditto.R
 import com.sano.reditto.presentation.model.LinkModel
 import com.sano.reditto.util.numToK
+import com.sano.reditto.util.onClick
 import com.sano.reditto.util.visibleOrGone
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_link.*
 import java.util.concurrent.TimeUnit
 
-class LinkViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+class LinkViewHolder(override val containerView: View, localItemClickListener: (Int) -> Unit) :
+    RecyclerView.ViewHolder(containerView), LayoutContainer {
+
+    init { itemView.onClick { localItemClickListener.invoke(adapterPosition) } }
 
     fun bind(model: LinkModel) {
-        with(itemView.resources) {
-            tvInfo.text = getString(R.string.post_info, model.author, timeAgo(model.postDate))
-            tvScore.text = getString(R.string.post_score_comments, numToK(model.score), numToK(model.numComments))
-            tvTitle.text = model.title
+        val resources = itemView.resources
 
-            ivPostImage.visibleOrGone(model.hasThumbnail())
+        tvInfo.text = resources.getString(R.string.post_info, model.author, timeAgo(model.postDate))
+        tvScore.text = resources.getString(R.string.post_score_comments, numToK(model.score), numToK(model.numComments))
 
-            model.thumbnail?.let {
-                Picasso.get().load(model.thumbnail).into(ivPostImage)
-            }
+        tvTitle.text = model.title
+
+        ivPostImage.visibleOrGone(model.hasThumbnail())
+
+        model.thumbnail?.let {
+            Picasso.get().load(model.thumbnail).into(ivPostImage)
         }
     }
 

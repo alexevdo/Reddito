@@ -19,5 +19,6 @@ fun Link.toLinkEntity() =
         postDate = createdUtc,
         thumbnail = thumbnail,
         score = score,
-        numComments = numComments
+        numComments = numComments,
+        link = permalink
     )

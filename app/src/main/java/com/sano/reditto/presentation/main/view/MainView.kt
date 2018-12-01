@@ -8,4 +8,5 @@ interface MainView: BaseView {
     fun setLinks(models: List<LinkModel>)
     fun setRefreshing(isRefreshing: Boolean)
     fun logout()
+    fun openTab(url: String)
 }
