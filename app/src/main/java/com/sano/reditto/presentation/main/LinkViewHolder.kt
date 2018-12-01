@@ -5,13 +5,12 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.sano.reditto.R
 import com.sano.reditto.presentation.model.LinkModel
-import com.sano.reditto.util.gone
 import com.sano.reditto.util.numToK
-import com.sano.reditto.util.visible
 import com.sano.reditto.util.visibleOrGone
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_link.*
+import java.util.concurrent.TimeUnit
 
 class LinkViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
@@ -30,6 +29,6 @@ class LinkViewHolder(override val containerView: View) : RecyclerView.ViewHolder
     }
 
     private fun timeAgo(postDate: Long) =
-        DateUtils.getRelativeTimeSpanString(postDate, System.currentTimeMillis(), 0)
+        DateUtils.getRelativeTimeSpanString(TimeUnit.SECONDS.toMillis(postDate), System.currentTimeMillis(), 0)
 
 }

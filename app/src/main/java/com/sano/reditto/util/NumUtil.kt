@@ -15,4 +15,3 @@ fun numToK(number: Int): String {
         "$number"
     }
 }
-
