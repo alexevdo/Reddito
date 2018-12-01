@@ -1,6 +1,7 @@
 package com.sano.reditto.data.server
 
 import com.sano.reditto.data.server.pojo.AccessToken
+import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.Field
@@ -26,4 +27,12 @@ interface AuthAPIClient {
         @Field("refresh_token") refreshToken: String?,
         @Field("grant_type") grantType: String
     ): Call<AccessToken>
+
+    @FormUrlEncoded
+    @POST("api/v1/revoke_token")
+    fun revokeToken(
+        @Header("Authorization") authHeader: String,
+        @Field("token") token: String,
+        @Field("token_type_hint") tokenTypeHint: String
+    ): Completable
 }

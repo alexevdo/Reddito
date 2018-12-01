@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/revokeAccess"
+          android:title="@string/revoke_access_token" />
+
+    <item android:id="@+id/revokeRefresh"
+          android:title="@string/revoke_refresh_token" />
+
+    <item android:id="@+id/logout"
+          android:title="@string/logout"/>
+</menu>

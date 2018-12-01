@@ -25,6 +25,9 @@ private const val ACCESS_TOKEN_PREFS_KEY = "oauth.accesstoken"
 private const val REFRESH_TOKEN_PREFS_KEY = "oauth.refreshtoken"
 private const val TOKEN_TYPE_PREFS_KEY = "oauth.tokentype"
 
+const val REFRESH_TOKEN_TYPE_HINT = "refresh_token"
+const val ACCESS_TOKEN_TYPE_HINT = "access_token"
+
 class AuthManager(private val sharedPrefs: SharedPreferences) {
 
     fun isOauthUri(uri: String) = uri.startsWith(API_OAUTH_REDIRECT)
@@ -39,7 +42,7 @@ class AuthManager(private val sharedPrefs: SharedPreferences) {
             .apply()
 
 
-    fun authError() =
+    fun clearAuth() =
         sharedPrefs.edit()
             .apply {
                 remove(ACCESS_TOKEN_PREFS_KEY)
@@ -48,16 +51,24 @@ class AuthManager(private val sharedPrefs: SharedPreferences) {
             }
             .apply()
 
-    val accessToken: String? = sharedPrefs.getString(ACCESS_TOKEN_PREFS_KEY, null)
-    val tokenType: String? = sharedPrefs.getString(TOKEN_TYPE_PREFS_KEY, null)
-    val refreshToken: String? = sharedPrefs.getString(REFRESH_TOKEN_PREFS_KEY, null)
+    val accessToken: String?
+        get() = sharedPrefs.getString(ACCESS_TOKEN_PREFS_KEY, null)
+
+    val tokenType: String?
+            get() = sharedPrefs.getString(TOKEN_TYPE_PREFS_KEY, null)
+
+    val refreshToken: String?
+            get() = sharedPrefs.getString(REFRESH_TOKEN_PREFS_KEY, null)
+
     val clientBasicAuth: String = Credentials.basic(API_OAUTH_CLIENT_ID, "")
 
-    val tokenHeaders: Map<String, String> = mapOf(
-        "Accept" to "application/json",
-        "Content-type" to "application/json",
-        "Authorization" to "$tokenType $accessToken"
-    )
+    val tokenHeaders: Map<String, String>
+        get() = mapOf(
+            "Accept" to "application/json",
+            "Content-type" to "application/json",
+            "Authorization" to "$tokenType $accessToken"
+        )
+
 
     val isLoggedIn: Boolean
         get() = !sharedPrefs.getString(ACCESS_TOKEN_PREFS_KEY, null).isNullOrEmpty()

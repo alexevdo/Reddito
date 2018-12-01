@@ -16,10 +16,7 @@ class MainPresenter(
 
     override fun onViewSet() {
         sessionManager
-            .subscribeLogout {
-                view.showError("Auth error")
-                view.logout()
-            }
+            .subscribeLogout { view.logout() }
             .addTo(compositeDisposable)
 
         load()
@@ -40,4 +37,28 @@ class MainPresenter(
                 onSuccess = { view.setLinks(it) },
                 onError = { view.showError(it.message) })
             .addTo(compositeDisposable)
+
+    fun onRevokeAccessToken() {
+        mainUseCase.revokeAccessToken()
+            .handleProgress { view.setRefreshing(it) }
+            .subscribeBy (
+                onComplete = { view.notify("Ok") },
+                onError = { view.showError(it.message) }
+            )
+            .addTo(compositeDisposable)
+    }
+
+    fun onRevokeRefreshToken() {
+        mainUseCase.revokeRefreshToken()
+            .handleProgress { view.setRefreshing(it) }
+            .subscribeBy (
+                onComplete = { view.notify("Ok") },
+                onError = { view.showError(it.message) }
+            )
+            .addTo(compositeDisposable)
+    }
+
+    fun logout() {
+        mainUseCase.logout()
+    }
 }

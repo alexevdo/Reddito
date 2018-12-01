@@ -33,7 +33,7 @@ val appModule: Module = module {
     single { provideGson() }
     single { provideAuthAPIClient(get()) }
     single { provideAPIClient(get(), get(), get(), get()) }
-    single { Repository(get(), get(), get()) as IRepository}
+    single { Repository(get(), get(), get(), get()) as IRepository}
 }
 
 private fun provideSharedPrefs(context: Context) = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
@@ -85,7 +85,7 @@ private fun OkHttpClient.Builder.addAuthInterceptors(authAPIClient: AuthAPIClien
 
     authenticator { _, response ->
         if (responseCount(response) >= 2) {
-            sessionManager.authError()
+            sessionManager.onLoggedOut()
             return@authenticator null
         }
 
@@ -116,8 +116,8 @@ private fun OkHttpClient.Builder.addAuthInterceptors(authAPIClient: AuthAPIClien
 }
 
 private fun authError(authManager: AuthManager, sessionManager: SessionManager) {
-    authManager.authError()
-    sessionManager.authError()
+    authManager.clearAuth()
+    sessionManager.onLoggedOut()
 }
 
 private fun Request.Builder.headers(accessHeaders: Map<String, String>): Request.Builder {

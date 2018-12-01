@@ -3,6 +3,7 @@ package com.sano.reditto.presentation.login.view
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.sano.reditto.R
@@ -45,4 +46,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
             .create()
             .show()
     }
+
+    override fun notify(s: String) =
+        Toast.makeText(this, "Notify $s", Toast.LENGTH_LONG).show()
 }

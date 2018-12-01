@@ -1,5 +1,6 @@
 package com.sano.reditto.di.manager
 
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
 
@@ -7,10 +8,12 @@ class SessionManager {
 
     private val logoutSubject = PublishSubject.create<Unit>()
 
-    fun authError() {
+    fun onLoggedOut() {
         logoutSubject.onNext(Unit)
     }
 
     fun subscribeLogout(onNext: () -> Unit) =
-        logoutSubject.subscribeBy { onNext.invoke() }
+        logoutSubject
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy { onNext.invoke() }
 }

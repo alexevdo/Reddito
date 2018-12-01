@@ -2,6 +2,8 @@ package com.sano.reditto.presentation.main.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +41,30 @@ class MainActivity : AppCompatActivity(), MainView {
         lRefresh.setOnRefreshListener { presenter.load() }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.revokeAccess -> {
+                presenter.onRevokeAccessToken()
+                return true
+            }
+            R.id.revokeRefresh -> {
+                presenter.onRevokeRefreshToken()
+                return true
+            }
+            R.id.logout -> {
+                presenter.logout()
+                return true
+            }
+        }
+
+        return false
+    }
+
     override fun addLinks(models: List<LinkModel>) = adapter.addItems(models)
 
     override fun setLinks(models: List<LinkModel>) = adapter.setItems(models)
@@ -49,6 +75,9 @@ class MainActivity : AppCompatActivity(), MainView {
 
     override fun showError(message: String?) =
         Toast.makeText(this, "Error $message", Toast.LENGTH_LONG).show()
+
+    override fun notify(s: String) =
+        Toast.makeText(this, "Notify $s", Toast.LENGTH_LONG).show()
 
     override fun logout() {
         startActivity(Intent(this, LoginActivity::class.java))

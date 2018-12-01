@@ -3,4 +3,7 @@
     <string name="error">Error!</string>
     <string name="post_info">Posted by %1$s %2$s</string>
     <string name="post_score_comments">Score: %1$s, %2$s comments</string>
+    <string name="revoke_access_token">Revoke Access Token</string>
+    <string name="revoke_refresh_token">Revoke Refresh Token</string>
+    <string name="logout">Logout</string>
 </resources>

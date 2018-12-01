@@ -18,4 +18,10 @@ class MainUseCase(private val repository: IRepository) {
             .map { list -> list.links.map { it.toLinkModel() } }
     }
 
+    fun revokeAccessToken() = repository.revokeAccessToken()
+
+    fun revokeRefreshToken() = repository.revokeRefreshToken()
+
+    fun logout() = repository.logout()
+
 }
