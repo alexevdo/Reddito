@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), MainView {
+
     private val presenter: MainPresenter by inject()
 
     private lateinit var adapter: LinkAdapter
