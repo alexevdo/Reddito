@@ -1,10 +1,12 @@
 package com.sano.reditto.util
 
 import android.app.Activity
+import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.res.ResourcesCompat
@@ -16,9 +18,16 @@ fun ViewGroup.inflate(@LayoutRes layoutId: Int, attachToRoot: Boolean = false): 
     LayoutInflater.from(context)
         .inflate(layoutId, this, attachToRoot)
 
-fun View.gone() { visibility = View.GONE }
-fun View.visible() { visibility = View.VISIBLE}
-fun View.visibleOrGone(isVisible: Boolean) { if(isVisible) visible() else gone() }
+fun View.gone() {
+    visibility = View.GONE
+}
+
+fun View.visible() {
+    visibility = View.VISIBLE
+}
+
+fun View.visibleOrGone(isVisible: Boolean) = if (isVisible) visible() else gone()
+
 fun View.isVisible() = visibility == View.VISIBLE
 
 fun View.onClick(listener: (View) -> Unit) = setOnClickListener(listener)
@@ -34,3 +43,7 @@ fun Activity.openCustomTab(url: String) =
             CustomTabsHelper
                 .openCustomTab(this@openCustomTab, it, Uri.parse(url), WebViewFallback())
         }
+
+fun Context.toast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+}

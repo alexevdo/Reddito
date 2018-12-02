@@ -30,9 +30,6 @@ class Link(
     @SerializedName("thumbnail")
     val thumbnail: String? = null,
 
-//    @SerializedName("preview")
-//    val preview: Preview? = null,
-
     @SerializedName("subreddit_id")
     val subredditId: String? = null,
 

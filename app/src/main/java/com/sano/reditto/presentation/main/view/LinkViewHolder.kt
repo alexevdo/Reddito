@@ -16,13 +16,20 @@ import java.util.concurrent.TimeUnit
 class LinkViewHolder(override val containerView: View, localItemClickListener: (Int) -> Unit) :
     RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-    init { itemView.onClick { localItemClickListener.invoke(adapterPosition) } }
+    init {
+        itemView.onClick { localItemClickListener.invoke(adapterPosition) }
+    }
 
     fun bind(model: LinkModel) {
         val resources = itemView.resources
 
         tvInfo.text = resources.getString(R.string.post_info, model.author, timeAgo(model.postDate))
-        tvScore.text = resources.getString(R.string.post_score_comments, numToK(model.score), numToK(model.numComments))
+        tvScore.text = resources.getString(
+            R.string.post_score_comments,
+            model.subreddit,
+            numToK(model.score),
+            numToK(model.numComments)
+        )
 
         tvTitle.text = model.title
 

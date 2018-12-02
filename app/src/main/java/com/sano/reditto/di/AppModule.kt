@@ -12,7 +12,10 @@ import com.sano.reditto.di.manager.AuthManager
 import com.sano.reditto.di.manager.REFRESH_GRANT_TYPE
 import com.sano.reditto.di.manager.SessionManager
 import com.sano.reditto.domain.IRepository
-import okhttp3.*
+import okhttp3.ConnectionPool
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.Module
@@ -33,7 +36,7 @@ val appModule: Module = module {
     single { provideGson() }
     single { provideAuthAPIClient(get()) }
     single { provideAPIClient(get(), get(), get(), get()) }
-    single { Repository(get(), get(), get(), get()) as IRepository}
+    single { Repository(get(), get(), get()) as IRepository }
 }
 
 private fun provideSharedPrefs(context: Context) = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
@@ -51,8 +54,10 @@ private fun provideAuthAPIClient(gson: Gson): AuthAPIClient {
     return retrofit.create<AuthAPIClient>(AuthAPIClient::class.java)
 }
 
-private fun provideAPIClient(authAPIClient: AuthAPIClient, gson: Gson, authManager: AuthManager,
-                             sessionManager: SessionManager): APIClient {
+private fun provideAPIClient(
+    authAPIClient: AuthAPIClient, gson: Gson, authManager: AuthManager,
+    sessionManager: SessionManager
+): APIClient {
 
     val okHttpClientBuilder = initOkHttpBuilder()
 
@@ -68,8 +73,10 @@ private fun provideAPIClient(authAPIClient: AuthAPIClient, gson: Gson, authManag
     return retrofit.create<APIClient>(APIClient::class.java)
 }
 
-private fun OkHttpClient.Builder.addAuthInterceptors(authAPIClient: AuthAPIClient, authManager: AuthManager,
-    sessionManager: SessionManager): OkHttpClient.Builder {
+private fun OkHttpClient.Builder.addAuthInterceptors(
+    authAPIClient: AuthAPIClient, authManager: AuthManager,
+    sessionManager: SessionManager
+): OkHttpClient.Builder {
 
     addInterceptor { chain ->
         val original = chain.request()
@@ -92,7 +99,8 @@ private fun OkHttpClient.Builder.addAuthInterceptors(authAPIClient: AuthAPIClien
         val call = authAPIClient.getRefreshAccessToken(
             authManager.clientBasicAuth,
             authManager.refreshToken,
-            REFRESH_GRANT_TYPE)
+            REFRESH_GRANT_TYPE
+        )
 
         try {
             val tokenResponse = call.execute()
@@ -118,11 +126,6 @@ private fun OkHttpClient.Builder.addAuthInterceptors(authAPIClient: AuthAPIClien
 private fun authError(authManager: AuthManager, sessionManager: SessionManager) {
     authManager.clearAuth()
     sessionManager.onLoggedOut()
-}
-
-private fun Request.Builder.headers(accessHeaders: Map<String, String>): Request.Builder {
-    accessHeaders.forEach { header(it.key, it.value) }
-    return this
 }
 
 private fun responseCount(response: Response): Int {
@@ -154,3 +157,7 @@ private fun initOkHttpBuilder(): OkHttpClient.Builder {
 }
 
 private fun provideGson() = GsonBuilder().create()
+
+private fun Request.Builder.headers(accessHeaders: Map<String, String>) = apply {
+    accessHeaders.forEach { header(it.key, it.value) }
+}

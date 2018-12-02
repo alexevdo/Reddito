@@ -3,7 +3,7 @@ package com.sano.reditto.presentation.base
 import androidx.annotation.CallSuper
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BasePresenter<T: BaseView> {
+abstract class BasePresenter<T : BaseView> {
     protected lateinit var view: T
     protected val compositeDisposable = CompositeDisposable()
 

@@ -13,7 +13,9 @@ class MainPresenter(
     private val sessionManager: SessionManager,
     private val mainUseCase: MainUseCase
 ) : BasePresenter<MainView>() {
-    val pageSize: Int = 10
+
+    val pageSize
+        get() = mainUseCase.pageSize
 
     override fun onViewSet() {
         sessionManager
@@ -24,7 +26,7 @@ class MainPresenter(
     }
 
     fun loadMore(itemCount: Int) =
-        mainUseCase.getTop(pageSize, itemCount)
+        mainUseCase.getTop(itemCount)
             .handleProgress { view.setRefreshing(it) }
             .subscribeBy(
                 onSuccess = { view.addLinks(it) },
@@ -32,34 +34,32 @@ class MainPresenter(
             .addTo(compositeDisposable)
 
     fun load() =
-        mainUseCase.getTop(pageSize)
+        mainUseCase.getTop()
             .handleProgress { view.setRefreshing(it) }
             .subscribeBy(
                 onSuccess = { view.setLinks(it) },
                 onError = { view.showError(it.message) })
             .addTo(compositeDisposable)
 
-    fun onRevokeAccessToken() {
+    fun onRevokeAccessToken() =
         mainUseCase.revokeAccessToken()
             .handleProgress { view.setRefreshing(it) }
-            .subscribeBy (
+            .subscribeBy(
                 onComplete = { view.notify("Ok") },
                 onError = { view.showError(it.message) }
             )
             .addTo(compositeDisposable)
-    }
 
-    fun onRevokeRefreshToken() {
+    fun onRevokeRefreshToken() =
         mainUseCase.revokeRefreshToken()
             .handleProgress { view.setRefreshing(it) }
-            .subscribeBy (
+            .subscribeBy(
                 onComplete = { view.notify("Ok") },
                 onError = { view.showError(it.message) }
             )
             .addTo(compositeDisposable)
-    }
 
     fun logout() = mainUseCase.logout()
 
-    fun onLinkClick(it: LinkModel) = view.openTab(mainUseCase.formatLink(it.link))
+    fun onLinkClick(it: LinkModel) = view.openTab(mainUseCase.formatLink(it))
 }

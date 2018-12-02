@@ -2,7 +2,8 @@ package com.sano.reditto.presentation.model
 
 private const val DEFAULT_THUMBNAIL = "default"
 
-class LinkModel (
+class LinkModel(
+    val id: String,
     val title: String,
     val author: String,
     val subreddit: String,

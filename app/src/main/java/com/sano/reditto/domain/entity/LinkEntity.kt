@@ -1,6 +1,7 @@
 package com.sano.reditto.domain.entity
 
 class LinkEntity(
+    val id: String,
     val title: String,
     val author: String,
     val subreddit: String,

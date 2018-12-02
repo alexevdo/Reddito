@@ -7,5 +7,5 @@ import org.koin.dsl.module.module
 
 val domainModule: Module = module {
     single { LoginUseCase(get()) }
-    single { MainUseCase(get()) }
+    single { MainUseCase(get(), get()) }
 }

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sano.reditto.R
@@ -12,11 +11,8 @@ import com.sano.reditto.presentation.base.PaginationScrollListener
 import com.sano.reditto.presentation.login.view.LoginActivity
 import com.sano.reditto.presentation.main.MainPresenter
 import com.sano.reditto.presentation.model.LinkModel
-import com.sano.reditto.util.gone
-import com.sano.reditto.util.isVisible
 import com.sano.reditto.util.openCustomTab
-import com.sano.reditto.util.visible
-import kotlinx.android.synthetic.main.activity_login.*
+import com.sano.reditto.util.toast
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
@@ -80,11 +76,9 @@ class MainActivity : AppCompatActivity(), MainView {
         lRefresh.isRefreshing = isRefreshing
     }
 
-    override fun showError(message: String?) =
-        Toast.makeText(this, "Error $message", Toast.LENGTH_LONG).show()
+    override fun showError(message: String?) = toast("${getString(R.string.error)} $message")
 
-    override fun notify(s: String) =
-        Toast.makeText(this, "Notify $s", Toast.LENGTH_LONG).show()
+    override fun notify(message: String) = toast("${getString(R.string.notify)} $message")
 
     override fun logout() {
         startActivity(Intent(this, LoginActivity::class.java))

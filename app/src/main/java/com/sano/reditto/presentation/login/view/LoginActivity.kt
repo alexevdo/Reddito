@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.webkit.WebResourceRequest
-import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -36,7 +35,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
         bSignIn.onClick { presenter.signInClick() }
 
         webView.settings.javaScriptEnabled = true
-        webView.webViewClient = object: WebViewClient() {
+        webView.webViewClient = object : WebViewClient() {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest): Boolean {
                 return presenter.handleUri(request.url)
@@ -49,7 +48,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     override fun openTab(url: String, isShowWebView: Boolean) {
-        if(isShowWebView) webView.visible()
+        if (isShowWebView) webView.visible()
         webView.loadUrl(url)
     }
 
@@ -77,7 +76,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
         Toast.makeText(this, "Notify $s", Toast.LENGTH_LONG).show()
 
     override fun onBackPressed() {
-        if(webView.isVisible()) {
+        if (webView.isVisible()) {
             webView.gone()
         } else {
             super.onBackPressed()

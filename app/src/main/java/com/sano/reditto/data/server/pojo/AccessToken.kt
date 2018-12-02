@@ -1,22 +1,21 @@
 package com.sano.reditto.data.server.pojo
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class AccessToken {
+class AccessToken(
     @SerializedName("access_token")
-    var accessToken: String? = null
+    var accessToken: String,
 
     @SerializedName("token_type")
-    var tokenType: String? = null
+    var tokenType: String,
 
     @SerializedName("expires_in")
-    var expiresIn: Int? = null
+    var expiresIn: Int,
 
     @SerializedName("refresh_token")
-    var refreshToken: String? = null
+    var refreshToken: String?,
 
     @SerializedName("scope")
-    var scope: String? = null
-}
+    var scope: String
+)
 

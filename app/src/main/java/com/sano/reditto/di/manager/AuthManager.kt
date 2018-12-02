@@ -3,13 +3,14 @@ package com.sano.reditto.di.manager
 import android.content.SharedPreferences
 import com.sano.reditto.data.server.pojo.AccessToken
 import okhttp3.Credentials
+import java.lang.IllegalStateException
 
 private const val API_OAUTH_CLIENT_ID = "feVnkdeE6BM6tQ"
-const val API_OAUTH_REDIRECT = "http://oauth-reditto"
 private const val RESPONSE_TYPE = "code"
 private const val DURATION = "permanent"
 private const val SCOPE = "read"
 
+const val API_OAUTH_REDIRECT = "http://oauth-reditto"
 const val API_LOGIN_URL = "https://www.reddit.com/api/v1/authorize.compact?" +
         "client_id=" + API_OAUTH_CLIENT_ID +
         "&response_type=" + RESPONSE_TYPE +
@@ -21,12 +22,12 @@ const val API_LOGIN_URL = "https://www.reddit.com/api/v1/authorize.compact?" +
 const val ACCESS_GRANT_TYPE = "authorization_code"
 const val REFRESH_GRANT_TYPE = "refresh_token"
 
+const val REFRESH_TOKEN_TYPE_HINT = "refresh_token"
+const val ACCESS_TOKEN_TYPE_HINT = "access_token"
+
 private const val ACCESS_TOKEN_PREFS_KEY = "oauth.accesstoken"
 private const val REFRESH_TOKEN_PREFS_KEY = "oauth.refreshtoken"
 private const val TOKEN_TYPE_PREFS_KEY = "oauth.tokentype"
-
-const val REFRESH_TOKEN_TYPE_HINT = "refresh_token"
-const val ACCESS_TOKEN_TYPE_HINT = "access_token"
 
 class AuthManager(private val sharedPrefs: SharedPreferences) {
 
@@ -38,7 +39,7 @@ class AuthManager(private val sharedPrefs: SharedPreferences) {
                 putString(ACCESS_TOKEN_PREFS_KEY, accessToken.accessToken)
                 putString(TOKEN_TYPE_PREFS_KEY, accessToken.tokenType)
 
-                if(!accessToken.refreshToken.isNullOrEmpty())
+                if (!accessToken.refreshToken.isNullOrEmpty())
                     putString(REFRESH_TOKEN_PREFS_KEY, accessToken.refreshToken)
             }
             .apply()
@@ -56,11 +57,11 @@ class AuthManager(private val sharedPrefs: SharedPreferences) {
     val accessToken: String?
         get() = sharedPrefs.getString(ACCESS_TOKEN_PREFS_KEY, null)
 
-    val tokenType: String?
-            get() = sharedPrefs.getString(TOKEN_TYPE_PREFS_KEY, null)
+    private val tokenType: String?
+        get() = sharedPrefs.getString(TOKEN_TYPE_PREFS_KEY, null)
 
     val refreshToken: String?
-            get() = sharedPrefs.getString(REFRESH_TOKEN_PREFS_KEY, null)
+        get() = sharedPrefs.getString(REFRESH_TOKEN_PREFS_KEY, null)
 
     val clientBasicAuth: String = Credentials.basic(API_OAUTH_CLIENT_ID, "")
 
@@ -71,8 +72,11 @@ class AuthManager(private val sharedPrefs: SharedPreferences) {
             "Authorization" to "$tokenType $accessToken"
         )
 
-
     val isLoggedIn: Boolean
         get() = !sharedPrefs.getString(ACCESS_TOKEN_PREFS_KEY, null).isNullOrEmpty()
 
 }
+
+class EmptyAccessTokenException : IllegalStateException()
+
+class EmptyRefreshTokenException : IllegalStateException()

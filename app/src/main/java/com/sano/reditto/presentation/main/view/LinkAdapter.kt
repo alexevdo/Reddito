@@ -6,7 +6,7 @@ import com.sano.reditto.R
 import com.sano.reditto.presentation.model.LinkModel
 import com.sano.reditto.util.inflate
 
-class LinkAdapter(itemClickListener: (LinkModel) -> Unit ): RecyclerView.Adapter<LinkViewHolder>() {
+class LinkAdapter(itemClickListener: (LinkModel) -> Unit) : RecyclerView.Adapter<LinkViewHolder>() {
 
     private val items: MutableList<LinkModel> = arrayListOf()
     private val localItemClickListener: (Int) -> Unit = { itemClickListener.invoke(items[it]) }
@@ -16,7 +16,7 @@ class LinkAdapter(itemClickListener: (LinkModel) -> Unit ): RecyclerView.Adapter
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(holder: LinkViewHolder, position: Int)  = holder.bind(items[position])
+    override fun onBindViewHolder(holder: LinkViewHolder, position: Int) = holder.bind(items[position])
 
     fun addItems(addItems: List<LinkModel>) {
         items.addAll(addItems)

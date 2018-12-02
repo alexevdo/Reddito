@@ -1,4 +1,4 @@
-package com.sano.reditto.data.server.mapper
+package com.sano.reditto.data.mapper
 
 import com.sano.reditto.data.server.pojo.Link
 import com.sano.reditto.data.server.pojo.Listing
@@ -13,6 +13,7 @@ fun Listing<Link>.toPagedLinksEntity() =
 
 fun Link.toLinkEntity() =
     LinkEntity(
+        id = id,
         title = title,
         author = author,
         subreddit = subreddit,

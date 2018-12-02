@@ -5,6 +5,7 @@ import com.sano.reditto.presentation.model.LinkModel
 
 fun LinkEntity.toLinkModel() =
     LinkModel(
+        id = id,
         title = title,
         author = author,
         subreddit = subreddit,

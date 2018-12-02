@@ -13,17 +13,17 @@ class PaginationScrollListener(
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
 
+        if (isLoading.invoke()) return
+
         val visibleItemCount = layoutManager.childCount
         val totalItemCount = layoutManager.itemCount
         val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-        if (!isLoading.invoke()) {
-            if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
-                && firstVisibleItemPosition >= 0
-                && totalItemCount >= pageSize
-            ) {
-                loadMore.invoke()
-            }
+        if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
+            && firstVisibleItemPosition >= 0
+            && totalItemCount >= pageSize
+        ) {
+            loadMore.invoke()
         }
     }
 }

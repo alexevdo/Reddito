@@ -15,16 +15,15 @@ const val ACCESS_DENIED = "access_denied"
 class LoginPresenter(private val authManager: AuthManager, private val useCase: LoginUseCase) :
     BasePresenter<LoginView>() {
 
-    override fun onViewSet() {
+    override fun onViewSet() =
         if (authManager.isLoggedIn) view.navigateToMain()
         else view.openTab(API_LOGIN_URL, false)
-    }
 
     fun handleUri(uri: Uri?): Boolean {
         if (uri == null || authManager.isOauthUri(toString())) return false
 
         val error = uri.getQueryParameter(ERROR_PARAMETER)
-        if(!error.isNullOrEmpty()) {
+        if (!error.isNullOrEmpty()) {
             view.errorLogin()
             return true
         }

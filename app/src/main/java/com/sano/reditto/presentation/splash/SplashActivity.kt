@@ -8,19 +8,20 @@ import com.sano.reditto.presentation.login.view.LoginActivity
 import com.sano.reditto.presentation.main.view.MainActivity
 import org.koin.android.ext.android.inject
 
-class SplashActivity: AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
 
-    private val authManager: AuthManager by inject ()
+    private val authManager: AuthManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         startActivity(
-            if(authManager.isLoggedIn) {
+            if (authManager.isLoggedIn) {
                 Intent(this, MainActivity::class.java)
             } else {
                 Intent(this, LoginActivity::class.java)
-            })
+            }
+        )
         finish()
     }
 }
