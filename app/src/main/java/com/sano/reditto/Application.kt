@@ -1,5 +1,6 @@
 package com.sano.reditto
 
+import LocaleContextWrapper
 import android.app.Application
 import android.content.Context
 import com.facebook.stetho.Stetho
@@ -10,7 +11,8 @@ import org.koin.android.ext.android.startKoin
 import saschpe.android.customtabs.CustomTabsActivityLifecycleCallbacks
 import java.util.*
 
-class Application : Application() {
+@Suppress("unused")
+class RedittoApp : Application() {
     override fun onCreate() {
         super.onCreate()
 

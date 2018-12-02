@@ -3,7 +3,6 @@ package com.sano.reditto.di.manager
 import android.content.SharedPreferences
 import com.sano.reditto.data.server.pojo.AccessToken
 import okhttp3.Credentials
-import java.lang.IllegalStateException
 
 private const val API_OAUTH_CLIENT_ID = "feVnkdeE6BM6tQ"
 private const val RESPONSE_TYPE = "code"

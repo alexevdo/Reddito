@@ -9,13 +9,7 @@ class AccessToken(
     @SerializedName("token_type")
     var tokenType: String,
 
-    @SerializedName("expires_in")
-    var expiresIn: Int,
-
     @SerializedName("refresh_token")
-    var refreshToken: String?,
-
-    @SerializedName("scope")
-    var scope: String
+    var refreshToken: String?
 )
 

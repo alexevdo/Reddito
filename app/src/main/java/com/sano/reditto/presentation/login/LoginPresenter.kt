@@ -10,7 +10,6 @@ import io.reactivex.rxkotlin.addTo
 
 const val CODE_QUERY_PARAMETER = "code"
 const val ERROR_PARAMETER = "error"
-const val ACCESS_DENIED = "access_denied"
 
 class LoginPresenter(private val authManager: AuthManager, private val useCase: LoginUseCase) :
     BasePresenter<LoginView>() {

@@ -1,8 +1,8 @@
 package com.sano.reditto.data
 
+import com.sano.reditto.data.mapper.toPagedLinksEntity
 import com.sano.reditto.data.server.APIClient
 import com.sano.reditto.data.server.AuthAPIClient
-import com.sano.reditto.data.mapper.toPagedLinksEntity
 import com.sano.reditto.di.manager.*
 import com.sano.reditto.domain.IRepository
 import com.sano.reditto.domain.entity.PagedLinksEntity
