@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.sano.reditto">
+          package="com.sano.reddito">
 
     <application
             android:allowBackup="true"
@@ -8,15 +8,15 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:name=".RedittoApp"
+            android:name="com.sano.reddito.RedittoApp"
             android:theme="@style/AppTheme">
 
-        <activity android:name=".presentation.login.view.LoginActivity"
+        <activity android:name="com.sano.reddito.presentation.login.view.LoginActivity"
                   android:launchMode="singleInstance"/>
 
-        <activity android:name=".presentation.main.view.MainActivity"/>
+        <activity android:name="com.sano.reddito.presentation.main.view.MainActivity"/>
 
-        <activity android:name=".presentation.splash.SplashActivity"
+        <activity android:name="com.sano.reddito.presentation.splash.SplashActivity"
                   android:theme="@style/AppTheme.NoActionBar.Launch">
 
             <intent-filter>
